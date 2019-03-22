@@ -10,6 +10,10 @@ public ref struct Foo
         _data = data;
     }
 
+    // Could have just made this return "Foo" instead of creating a new type
+    // No one wants the IEnumerator methods on the main type, so a nested type is better
+    // This is the pattern used by Span<T> as well. 
+    // Avoids these boiler-plate methods showing up in intellisense
     public Enumerator GetEnumerator()
     {
         return new Enumerator(_data);
