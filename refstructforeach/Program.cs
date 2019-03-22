@@ -35,3 +35,21 @@ namespace spanforeach
         }
     }
 }
+
+/*
+foreach over foo
+0
+1
+2
+3
+4
+foreach over bar
+2
+3
+foreach over a span
+0
+1
+2
+3
+4
+*/
