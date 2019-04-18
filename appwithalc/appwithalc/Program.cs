@@ -30,7 +30,7 @@ namespace appwithalc
             var alcName = "my customer ALC";
             WriteLine();
             WriteLine($"Load library assembly via new \"{alcName}\" ALC"); ;
-            var pc = new PrivateContext(alcName);
+            var pc = new AssemblyLoadContext(alcName);
             // load library
             var library = pc.LoadFromAssemblyPath(libPath);
             var foo = library.CreateInstance<IFoo>("library.Foo");
