@@ -27,16 +27,16 @@ namespace appwithalc
 
             // create custom load context
             // load "library" assembly
-            var alcName = "my customer ALC";
+            var myAlcName = "my custom ALC";
             WriteLine();
-            WriteLine($"Load library assembly via new \"{alcName}\" ALC"); ;
-            var pc = new AssemblyLoadContext(alcName);
+            WriteLine($"Load \"library\" assembly via new \"{myAlcName}\" ALC"); ;
+            var myAlc = new AssemblyLoadContext(myAlcName);
             // load library
-            var library = pc.LoadFromAssemblyPath(libPath);
+            var library = myAlc.LoadFromAssemblyPath(libPath);
             var foo = library.CreateInstance<IFoo>("library.Foo");
             WriteLine($"Foo: {foo.GetFoo()}");
             
-            PrintAssemblies(pc);
+            PrintAssemblies(myAlc);
 
             // print all ALCs
             PrintAlcs();
@@ -45,7 +45,7 @@ namespace appwithalc
             // this will create an ALC just for it and any dependencies not in the default ALC
             // it will not conflict with the custom PrivateContext ALC created above
             WriteLine();
-            WriteLine($"Load library assembly via Assembly.LoadFile"); ;
+            WriteLine($"Load \"library\" assembly via Assembly.LoadFile"); ;
             var library2 = Assembly.LoadFile(libPath);
             var foo2 = library.CreateInstance<IFoo>("library.Foo");
             WriteLine($"Foo: {foo2.GetFoo()}");
