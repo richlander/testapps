@@ -61,4 +61,15 @@ foreach over a span
 2
 3
 4
+foreach over two Foos
+0
+1
+2
+3
+4
+0
+1
+2
+3
+4
 */
