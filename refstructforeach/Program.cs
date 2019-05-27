@@ -32,6 +32,15 @@ namespace spanforeach
             {
                 Console.WriteLine(s);
             }
+
+            WriteLine("foreach over two Foos");
+            foreach(var f in new TwoFooHolder(foo,foo))
+            {
+                foreach(var i in f)
+                {
+                    WriteLine(i);
+                }
+            }
         }
     }
 }
