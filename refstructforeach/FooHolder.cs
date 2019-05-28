@@ -11,6 +11,22 @@ public ref struct TwoFooHolder
         _two = two;
     }
 
+    public Foo this[int i]
+    {
+        get
+        {
+            if (i == 0)
+            {
+                return _one;
+            }
+            else if (i == 1)
+            {
+                return _two;
+            }
+            throw new ArgumentOutOfRangeException();
+        }
+    }
+
     public Enumerator GetEnumerator()
     {
         return new Enumerator(this);

@@ -36,9 +36,20 @@ namespace spanforeach
             WriteLine("foreach over two Foos");
             foreach(var f in new TwoFooHolder(foo,foo))
             {
-                foreach(var i in f)
+                foreach(var num in f)
                 {
-                    WriteLine(i);
+                    WriteLine(num);
+                }
+            }
+
+            WriteLine("indexer access over two Foos");
+            var holder = new TwoFooHolder(foo,foo);
+            for (int i = 0; i < 2;i++)
+            {
+                var f = holder[i];
+                foreach(var num in f)
+                {
+                    WriteLine(num);
                 }
             }
         }
