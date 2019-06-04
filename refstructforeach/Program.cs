@@ -10,31 +10,33 @@ namespace spanforeach
             // This app demonstrates various patterns for using
             // forach with ref structs.
             // ref structs cannot implement interfaces, so IEnumerable isn't an option
-            int[] data = new int[] {0,1,2,3,4};
+            Span<int> data = new int[] { 0, 1, 2, 3, 4, 5, 6};
             var foo = new Foo(data);
-            Span<int> data2 = data;
-            var bar = new Bar(data2[2..^1]);
+            var bar = new Bar(data[2..^1]);
 
-            WriteLine("foreach over foo");
+            WriteLine("foreach over foo, using custom enumerator");
             foreach (var f in foo)
             {
                 Console.WriteLine(f);
             }
 
-            WriteLine("foreach over bar");
+            WriteLine("foreach over bar, using spans enumerator");
             foreach (var b in bar)
             {
                 Console.WriteLine(b);
             }
 
-            WriteLine("foreach over a span");
-            foreach (var s in data2)
+            WriteLine("foreach over a span directly");
+            foreach (var s in data)
             {
                 Console.WriteLine(s);
             }
 
+            // create holder value for remaining examples
+            var holder = new TwoFooHolder(foo, new Foo(data[3..^2]));
+
             WriteLine("foreach over two Foos");
-            foreach(var f in new TwoFooHolder(foo,foo))
+            foreach(var f in holder)
             {
                 foreach(var num in f)
                 {
@@ -43,7 +45,6 @@ namespace spanforeach
             }
 
             WriteLine("indexer access over two Foos");
-            var holder = new TwoFooHolder(foo,foo);
             for (int i = 0; i < 2;i++)
             {
                 var f = holder[i];
@@ -51,6 +52,15 @@ namespace spanforeach
                 {
                     WriteLine(num);
                 }
+            }
+
+            WriteLine("Randomly access Foos");
+            for (int i = 0; i < 2;i++)
+            {
+                var foo1 = holder[i];
+                var foo2 = holder[(i+1) % 2];
+
+                WriteLine($"Foo1 length: {foo1.Length}; Foo2 length: {foo2.Length}");
             }
         }
     }

@@ -10,6 +10,10 @@ public ref struct Foo
         _data = data;
     }
 
+    public int this[int i] => _data[i];
+
+    public int Length => _data.Length;
+
     // Could have just made this return "Foo" instead of creating a new type
     // No one wants the IEnumerator methods on the main type, so a nested type is better
     // This is the pattern used by Span<T> as well. 
