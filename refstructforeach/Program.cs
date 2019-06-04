@@ -67,30 +67,50 @@ namespace spanforeach
 }
 
 /*
-foreach over foo
+Output:
+
+foreach over foo, using custom enumerator
 0
 1
 2
 3
 4
-foreach over bar
+5
+6
+foreach over bar, using spans enumerator
 2
 3
-foreach over a span
+4
+5
+foreach over a span directly
 0
 1
 2
 3
 4
+5
+6
 foreach over two Foos
 0
 1
 2
 3
 4
+5
+6
+3
+4
+indexer access over two Foos
 0
 1
 2
 3
 4
+5
+6
+3
+4
+Randomly access Foos
+Foo1 length: 7; Foo2 length: 2
+Foo1 length: 2; Foo2 length: 7
 */
