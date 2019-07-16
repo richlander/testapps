@@ -18,7 +18,7 @@ namespace readstdin
             string line = null;
             if (Console.IsInputRedirected)
             {
-                while ((line = Console.In.ReadLine()) != null)
+                while ((line = Console.In.ReadLine()) is object)
                 {
                     Console.WriteLine(line);
                 }
