@@ -60,4 +60,4 @@ Assembly loads:
 
 Assembly loading time:
 
-![Trace assemblies -- load times](trace-assemblies-loads-time.png)
+![Trace assemblies -- load times](trace-assemblies-loading-time.png)
