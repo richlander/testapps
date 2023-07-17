@@ -8,21 +8,23 @@ var ignore = new Option<List<string>>("--ignore")
 {
     Description = "substrings to ignore"
 };
+var platform = new Option<string>("--platform");
 
 var rootCommand = new RootCommand("Sample app for System.CommandLine");
 rootCommand.AddOption(ignore);
+rootCommand.AddOption(platform);
 rootCommand.AddArgument(directory);
 
 
-rootCommand.SetHandler((ignore, directory) => 
+rootCommand.SetHandler((ignore, platform, directory) => 
     { 
-        App(directory, ignore);
+        App(directory, platform, ignore);
     },
-    ignore, directory);
+    ignore, platform, directory);
 
 return await rootCommand.InvokeAsync(args);
 
-void App(DirectoryInfo dir, List<string>? ignore)
+void App(DirectoryInfo dir, string? platform, List<string>? ignore)
 {
     const string DOCKERFILE = "Dockerfile";
 
@@ -46,7 +48,7 @@ void App(DirectoryInfo dir, List<string>? ignore)
         }
 
         WriteLine($"Build: {file.Name}");
-        BuildDockerfile(file);
+        BuildDockerfile(file, platform);
     }
 
     PrintImages();
@@ -65,11 +67,11 @@ bool IsMatch(string target, List<string> ignoreWords)
     return false;
 }
 
-void BuildDockerfile(FileInfo file)
+void BuildDockerfile(FileInfo file, string? platform)
 {
     var parent = file.Directory?.FullName ?? throw new Exception($"Cannot find parent directory of {file.FullName}");
-    string args = $"build --pull -t {file.Name.ToLowerInvariant()} -f {file.FullName} {file.Directory.FullName}";
-    WriteLine(args);
+    var platformArg = platform is null ? string.Empty : $"--platform {platform}";
+    string args = $"build --pull {platformArg} -t {file.Name.ToLowerInvariant()} -f {file.FullName} {file.Directory.FullName}";
     var command = Process.Start("docker", args);
     command.WaitForExit();
 }
